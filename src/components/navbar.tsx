@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { User } from '../data/user';
 import { FaBell, FaCaretDown, FaUserGroup } from 'react-icons/fa6';
 
@@ -23,7 +23,7 @@ export default function Navbar() {
     });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let user = window.localStorage.getItem('user');
     if (user !== null) {
       setUser(JSON.parse(user));
@@ -31,11 +31,11 @@ export default function Navbar() {
   }, []);
   
   return (
-  <div className='bg-background-main text-text-main h-16 flex w-full gap-8 motiva font-bold text-xl items-center px-5'>
+  <nav className='bg-background-main text-text-main h-16 flex w-full gap-8 motiva font-bold text-xl items-center px-5'>
     <a href="/">
     <img src="/steam-logo.png" alt="Steam logo" className='w-32' />
     </a>
-    <a id="store" href="/store">MAGASIN</a>
+    <a id="store" href="/store#">MAGASIN</a>
     <a id="community" href="/community">COMMUNAUTÉ</a>
     <a id="profile" href="/profile">{user !== null ? user.username.toUpperCase() : "PROFIL"}</a>
     <a id="library" href="/library">BIBLIOTHÈQUE</a>
@@ -65,5 +65,5 @@ export default function Navbar() {
     </div>}
 
 
-  </div>);
+  </nav>);
 }

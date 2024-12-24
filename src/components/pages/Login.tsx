@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { getUserByUsername, User } from "../../data/user";
 import { db } from "../../services/Firebase";
 
-export default function Login() {
+export default function LoginPage() {
 
   useEffect(() => {
     if (window.localStorage.getItem("user") !== null) {
@@ -45,7 +45,7 @@ export default function Login() {
         </div>
         <div className="flex flex-col m-3">
           <span className="text-xl font-semibold">Mot de passe</span>
-          <input id="password"  type="password" className="p-5 rounded text-black" placeholder="********" onChange={(e) => setPassword(e.target.value)} />
+          <input id="password"  type="password" className="p-5 rounded text-black" placeholder="********" onKeyDown={(e) => e.key == "Enter" ? checkLogin() : null}  onChange={(e) => setPassword(e.target.value)} />
           <span className={(passwordIncorrect ? "block" : "hidden") + " text-red-500"}>Mot de passe incorrect!</span>
         </div>
 
