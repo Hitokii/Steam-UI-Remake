@@ -3,6 +3,7 @@ import { collection, Firestore, getDocs } from "@firebase/firestore";
 export interface User {
     id: string;
     username: string;
+    description: string;
     avatarURL: string;
     email: string;
     password: string;
