@@ -20,7 +20,7 @@ export default function ProfilePage() {
         <div className='w-5/6 mx-auto mt-16 p-5 flex flex-col gap-6 bg-[#31384335]'>
             {/* Top */}
             <section className='flex gap-5'>
-                <img src={user?.avatarURL} alt="Profile avatar" className='w-64 rounded border-4 border-[#ffffff60]' />
+                <img src={user?.avatarURL!} alt="Profile avatar" className='w-64 rounded border-4 border-[#ffffff60]' />
                 <div className='flex flex-col gap-16'>
                     <h1 className='flex items-center gap-3 text-4xl font-bold'>{user?.username} <FaAngleDown className='text-lg' /></h1>
                     <p>{user?.description || 'Description placeholder'}</p>

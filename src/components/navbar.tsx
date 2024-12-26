@@ -1,7 +1,8 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import { User } from '../data/user';
-import { FaBell, FaCaretDown, FaUser, FaUserGroup, FaWrench } from 'react-icons/fa6';
 import { FaArrowCircleLeft } from 'react-icons/fa';
+import { FaBell, FaCaretDown, FaUser, FaUserGroup, FaWrench } from 'react-icons/fa6';
+import { User } from '../data/user';
+import { signOut as disconnect } from '../services/Firebase';
 
 export default function Navbar() {
 
@@ -9,12 +10,6 @@ export default function Navbar() {
   var [user, setUser] = React.useState<User | null>(null);
   var [dropdownMenu, setDropdownMenu] = React.useState(false);
   var [dropdownNotif, setDropdownNotif] = React.useState(false);
-
-  const disconnectUser = () => {
-    window.location.href = "/";
-    window.localStorage.removeItem('user');
-  }
-
 
   useEffect(() => {
     let path = window.location.pathname;
@@ -40,21 +35,21 @@ export default function Navbar() {
       </a>
       <a id="store" href="/store#">MAGASIN</a>
       <a id="community" href="/community">COMMUNAUTÉ</a>
-      <a id="profile" href='/profile'>{user !== null ? user.username.toUpperCase() : "PROFIL"}</a>
+      <a id="profile" href='/profile'>{user !== null ? user.username!.toUpperCase() : "PROFIL"}</a>
       <a id="library" href="/library">BIBLIOTHÈQUE</a>
       <a id="downloads" href="/downloads">TÉLÉCHARGEMENTS</a>
       <div className="flex-auto"></div>
 
 
       {user !== null ?
-        <div className='flex gap-2'>
+        <div className='flex gap-2 scale-75'>
           <button className='btn bg-background-highlight text-text-dim text-2xl p-2 px-4 rounded'><FaUserGroup /></button>
           <button onClick={() => setDropdownNotif(!dropdownNotif)} className='btn bg-background-highlight text-text-dim text-2xl p-2 px-4 rounded relative'>
             <div className="absolute w-5 h-5 items-center text-xs font-bold text-black  bg-color-primary rounded-full -top-0 -end-2">2</div>
             <FaBell />
           </button>
           <button onClick={() => setDropdownMenu(!dropdownMenu)} className='btn bg-background-highlight p-2 text-base rounded flex gap-3 items-center'>
-            <img src={user.avatarURL} alt="Avatar" className='w-10 h-10 rounded-sm' />
+            <img src={user.avatarURL!} alt="Avatar" className='w-10 h-10 rounded-sm' />
             {user.username}
             <span className='text-text-dim'>{user.wallet}€</span>
             <FaCaretDown />
@@ -71,7 +66,7 @@ export default function Navbar() {
       <div className={`absolute top-[4.5rem] z-10 right-5 flex flex-col bg-background-main w-48 p-4 rounded ${dropdownMenu ? 'block' : 'hidden'}`}>
         <a href='/profile' className={`flex items-center gap-2 ${user?.isAdmin ? "block" : "hidden"}`}> <FaWrench /> Admin</a>
         <a href='/profile' className='flex items-center gap-2'> <FaUser /> Profil</a>
-        <button className='flex items-center gap-2' onClick={disconnectUser}> <FaArrowCircleLeft /> Déconnexion</button>
+        <button className='flex items-center gap-2' onClick={() => {disconnect()}}> <FaArrowCircleLeft /> Déconnexion</button>
       </div>
 
       {/* dropdownNotif */}

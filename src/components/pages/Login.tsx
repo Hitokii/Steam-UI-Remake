@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { getUserByUsername, User } from "../../data/user";
-import { db } from "../../services/Firebase";
+import { db, signInWithGithub } from "../../services/Firebase";
+import { FaGithub } from "react-icons/fa6";
 
 export default function LoginPage() {
 
@@ -49,7 +50,11 @@ export default function LoginPage() {
           <span className={(passwordIncorrect ? "block" : "hidden") + " text-red-500"}>Mot de passe incorrect!</span>
         </div>
 
-        <button className="bg-blue-500 rounded text-text-main mt-6 p-5 font-bold text-xl text-center" onClick={checkLogin}>Se connecter</button>
+      <div className="flex w-full gap-4">
+      <button className="bg-slate-800 rounded text-text-main mt-6 p-5 font-bold text-xl flex items-center gap-2 w-full justify-center" onClick={() => signInWithGithub()}><FaGithub/>  Github</button>
+      <button className="bg-blue-500 rounded text-text-main mt-6 p-5 font-bold text-xl text-center w-full" onClick={checkLogin}>Se connecter</button>
+      </div>
+        
         <a href="/register" className="text-center underline text-text-dim p-1">Pas de compte ? Cliquez ici!</a>
       </div>
   );

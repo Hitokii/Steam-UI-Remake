@@ -1,14 +1,15 @@
 import { collection, Firestore, getDocs } from "@firebase/firestore";
 
 export interface User {
-    id: string;
-    username: string;
-    description: string;
-    avatarURL: string;
-    email: string;
-    password: string;
+    id: string | null;
+    username: string | null;
+    description: string | null;
+    avatarURL: string | null;
+    email: string | null;
+    password: string | null;
     isAdmin: boolean;
     wallet: number|null;
+    isGithubUser: boolean;
 }
 
 export async function getUsers(db: Firestore): Promise<any[]> {
