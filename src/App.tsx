@@ -7,6 +7,7 @@ import StorePage from './components/Store';
 import './tailwind.css';
 import ProfilePage from './components/pages/Profile';
 import { User } from './data/user';
+import AdminPage from './components/pages/Admin';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/store' element={<StorePage/> } />
             <Route path='/profile' element={<ProfilePage/> } />
+            <Route path='/admin/panel' element={<AdminPage/> } />
         </Routes>
       </BrowserRouter>
       

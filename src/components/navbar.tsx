@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { FaArrowCircleLeft } from 'react-icons/fa';
 import { FaBell, FaCaretDown, FaUser, FaUserGroup, FaWrench } from 'react-icons/fa6';
 import { User } from '../data/user';
-import { signOut as disconnect } from '../services/Firebase';
+import { signOut } from '../services/Firebase';
 
 export default function Navbar() {
 
@@ -64,9 +64,9 @@ export default function Navbar() {
 
       {/* dropdownMenu */}
       <div className={`absolute top-[4.5rem] z-10 right-5 flex flex-col bg-background-main w-48 p-4 rounded ${dropdownMenu ? 'block' : 'hidden'}`}>
-        <a href='/profile' className={`flex items-center gap-2 ${user?.isAdmin ? "block" : "hidden"}`}> <FaWrench /> Admin</a>
+        <a href='/admin/panel' className={`flex items-center gap-2 ${user?.isAdmin ? "block" : "hidden"}`}> <FaWrench /> Admin</a>
         <a href='/profile' className='flex items-center gap-2'> <FaUser /> Profil</a>
-        <button className='flex items-center gap-2' onClick={() => {disconnect()}}> <FaArrowCircleLeft /> Déconnexion</button>
+        <button className='flex items-center gap-2' onClick={() => signOut()}> <FaArrowCircleLeft /> Déconnexion</button>
       </div>
 
       {/* dropdownNotif */}
