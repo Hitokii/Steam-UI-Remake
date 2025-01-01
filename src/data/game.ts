@@ -1,7 +1,6 @@
-import { collection, Firestore, getDocs } from "@firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, Firestore, getDocs, setDoc } from "@firebase/firestore";
 
 export interface Game {
-    id: string;
     title: string;
     price: number;
     description: string;
@@ -15,6 +14,24 @@ export interface Game {
     tags: string[];
 }
 
+export async function addGame(db: Firestore, game: Game): Promise<void> {
+    const games = collection(db, 'games');
+    await addDoc(games, game).then(() => {
+        console.log('Game added successfully');
+    }).catch((error) => {
+        console.error('Error adding game: ', error);
+    });
+}
+
+export async function deleteGame(db: Firestore, id: string): Promise<void> {
+    const games = collection(db, 'games');
+    await deleteDoc(doc(db, 'games', id)).then(() => {
+        console.log(`Game ${id} deleted successfully`);
+    }).catch((error) => {
+        console.error('Error deleting game: ', error);
+    });
+}
+
 export async function getGames(db: Firestore): Promise<Game[]> {
     const games = collection(db, 'games');
     const gamesSnapshot = await getDocs(games);
@@ -22,13 +39,6 @@ export async function getGames(db: Firestore): Promise<Game[]> {
     return gamesList;
 }
 
-export async function getGameById(db: Firestore, id: string): Promise<Game | null> {
-    const games = collection(db, 'games');
-    const gamesSnapshot = await getDocs(games);
-    const gamesList = gamesSnapshot.docs.map(doc => doc.data() as Game);
-    const game = gamesList.find(game => game.id === id);
-    return game || null;
-}
 
 export async function getGamesByGenre(db: Firestore, genre: string): Promise<Game[]> {
     const games = collection(db, 'games');

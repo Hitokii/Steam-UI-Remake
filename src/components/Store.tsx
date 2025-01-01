@@ -56,7 +56,7 @@ const renderGamesSearch = (games: Game[]) => {
   return (
     <>
       {games.map(game => (
-        <div key={game.id} className='absolute top-0 left-0 flex bg-background-dim justify-around w-full p-4 m-4 rounded'>
+        <div key={game.title} className='absolute top-0 left-0 flex bg-background-dim justify-around w-full p-4 m-4 rounded'>
           <img src={game.image} alt={game.title} className='h-48 object-contain rounded' />
           <div>
             <h1 className='text-xl font-bold'>{game.title}</h1>
